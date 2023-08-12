@@ -1,0 +1,52 @@
+/* App.css */
+
+.App {
+    text-align: center;
+    margin:5% auto;
+    width: 90%;
+  border-radius:20px;
+    background-color: rgb(255, 239, 239);
+    box-shadow: 10px 10px 26px -9px rgba(0,0,0,0.75);
+-webkit-box-shadow: 10px 10px 26px -9px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 26px -9px rgba(0,0,0,0.75);
+}
+h1{
+  color:#F9F9F9;
+}
+.App-header {
+    background-color: #64CCC5;
+    min-height: 10vh;
+    display: flex;
+  border-radius:20px 20px 0 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.Btn{
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+  border-radius:15px;
+    background-color: #64CCC5;
+    color: white;
+  margin-top:5%;
+    border: none;
+    cursor: pointer;
+    transition:  0.5s;
+}
+
+.Btn:hover {
+    background-color: #35A29F;
+  transform:scale(1.2);
+  color:#ffff;
+}
