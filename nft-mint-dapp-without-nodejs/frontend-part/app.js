@@ -1,6 +1,6 @@
 
 const ABI=[
-    {
+    { 
       "inputs": [],
       "stateMutability": "nonpayable",
       "type": "constructor"
@@ -458,49 +458,63 @@ const ABI=[
 
   
   document.addEventListener("DOMContentLoaded", async () => {
-    const appContainer = document.getElementById("mint");
-  
-        const nftContainer = document.createElement("div");
-        nftContainer.className = "App-main";
-  
-        const nftImage = document.createElement("img");
-        nftImage.src = "https://web3toolsimage.s3.eu-north-1.amazonaws.com/nftImages/nftimg.png";
-        nftImage.alt = "NFT";
-        nftImage.width = 400;
-  
-        const mintButton = document.createElement("button");
-        mintButton.className = "Btn";
-        mintButton.textContent = "Mint NFT";
-  
-        mintButton.addEventListener("click", async () => {
-            if (!window.ethereum) {
-                alert('Metamask is not installed. Please install Metamask.');
-                return;
-            }
-  
-            const web3 = new Web3(window.ethereum);
-  
-            try {
-                mintButton.disabled = true;
-  
-                const accounts = await web3.eth.requestAccounts();
-                const contractAddress = '0x6f71ef40b1647e96fabE462E269818280120e4cB'; // Replace with your actual contract address
-                const contract = new web3.eth.Contract(ABI, contractAddress);
-  
-                await contract.methods.mintNFT().send({ from: accounts[0], value: web3.utils.toWei('0.01', 'ether') });
-                alert('NFT Minted successfully!');
-            } catch (error) {
-                console.error(error);
-                alert('An error occurred while minting NFT.');
-            } finally {
-                mintButton.disabled = false;
-            }
-        });
-  
-        nftContainer.appendChild(nftImage);
-        nftContainer.appendChild(mintButton);
-  
-        appContainer.appendChild(nftContainer);
+    // DOMContentLoaded event: This event listener ensures that the code runs when the DOM is fully loaded and ready.
 
-  });
-  
+// Get the container element where the minting interface will be displayed
+const appContainer = document.getElementById("mint");
+
+// Create a div element to hold the NFT information
+const nftContainer = document.createElement("div");
+nftContainer.className = "App-main";
+
+// Create an image element to display the NFT image
+const nftImage = document.createElement("img");
+nftImage.src = "https://web3toolsimage.s3.eu-north-1.amazonaws.com/nftImages/nftimg.png"; // Set the image source
+nftImage.alt = "NFT"; // Set the alt text for the image
+nftImage.width = 400; // Set the width of the image
+
+// Create a button element for minting an NFT
+const mintButton = document.createElement("button");
+mintButton.className = "Btn"; // Apply a CSS class to style the button
+mintButton.textContent = "Mint NFT"; // Set the button text
+
+// Add a click event listener to the mint button
+mintButton.addEventListener("click", async () => {
+    // Check if Metamask is installed
+    if (!window.ethereum) {
+        alert('Metamask is not installed. Please install Metamask.');
+        return;
+    }
+
+    // Create a Web3 instance using the injected Ethereum object (Metamask)
+    const web3 = new Web3(window.ethereum);
+
+    try {
+        mintButton.disabled = true; // Disable the button to prevent multiple clicks
+
+        // Request user accounts from Metamask
+        const accounts = await web3.eth.requestAccounts();
+
+        // Replace with your actual contract address
+        const contractAddress = '0x6f71ef40b1647e96fabE462E269818280120e4cB';
+        // Create an instance of the contract using the ABI and contract address
+        const contract = new web3.eth.Contract(ABI, contractAddress);
+
+        // Mint an NFT by sending a transaction with value (Ether) for minting
+        await contract.methods.mintNFT().send({ from: accounts[0], value: web3.utils.toWei('0.01', 'ether') });
+        alert('NFT Minted successfully!');
+    } catch (error) {
+        console.error(error);
+        alert('An error occurred while minting NFT.');
+    } finally {
+        mintButton.disabled = false; // Enable the button again after minting or error
+    }
+});
+
+// Append the NFT image and mint button to the nftContainer
+nftContainer.appendChild(nftImage);
+nftContainer.appendChild(mintButton);
+
+// Append the nftContainer to the appContainer
+appContainer.appendChild(nftContainer);
+});
